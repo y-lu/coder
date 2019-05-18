@@ -1,0 +1,11 @@
+.DS_Store
+*.cert
+*.key
+.cache
+.viminfo
+.rnd
+.mono
+.lldb
+.lesshst
+.bash_history
+.gitconfig
