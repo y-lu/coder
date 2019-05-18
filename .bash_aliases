@@ -1,4 +1,6 @@
 alias va="vi ~/.bash_aliases; . ~/.bash_aliases"
+#export PS1="\u@:\w\$ "
+export PS1="\[\033[38;3;4;27m\]\u@:\w\$\[\033[0m\] "
 
 function helper() {
   echo Running: ${*}
