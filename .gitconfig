@@ -1,0 +1,5 @@
+[user]
+	email = {ID}+{username}@users.noreply.github.com
+	name = anonymous
+[credential]
+	helper = cache --timeout=3600
