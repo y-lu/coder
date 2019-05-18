@@ -6,7 +6,6 @@
       "command": "/usr/bin/g++",
       "args": [
         "-std=c++17",
-        "-O2",
         "-g",
         "${file}",
         "-o",
@@ -22,7 +21,6 @@
       "command": "/clang_8.0.0/bin/clang++",
       "args": [
         "-std=c++17",
-        "-O2",
         "-g",
         "${file}",
         "-o",
