@@ -9,3 +9,12 @@
 .lesshst
 .bash_history
 ipch
+.local/share/code-server/Backups/
+.local/share/code-server/CachedExtensions/
+.local/share/code-server/User/workspaceStorage/
+.local/share/code-server/User/globalStorage/
+.local/share/code-server/extensions/
+.local/share/code-server/globalStorage/
+.local/share/code-server/languagepacks.json
+.local/share/code-server/machineid
+.local/share/code-server/rapid_render.json
