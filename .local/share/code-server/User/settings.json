@@ -11,5 +11,7 @@
     "lldb.launch.terminal": "integrated",
     "C_Cpp.default.intelliSenseMode": "clang-x64",
     "lldb.launch.cwd": "${fileDirname}",
-    "window.zoomLevel": 0
+    "window.zoomLevel": 0,
+    "C_Cpp.clang_format_style": "Google",
+    "editor.tabSize": 2
 }
