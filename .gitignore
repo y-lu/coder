@@ -18,4 +18,5 @@ ipch
 .local/share/code-server/languagepacks.json
 .local/share/code-server/machineid
 .local/share/code-server/rapid_render.json
+.local/share/Trash/
 project/
