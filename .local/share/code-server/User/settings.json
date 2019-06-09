@@ -6,7 +6,7 @@
     "C_Cpp.default.cppStandard": "c++17",
     "C_Cpp.default.cStandard": "c11",
     "code-runner.executorMap": {
-        "cpp": "cd $dir && clang++ -g -std=c++17 $fileName -o $fileNameWithoutExt && echo && $dir$fileNameWithoutExt && echo"
+        "cpp": "cd $dir && clang++ -g -std=c++11 $fileName -o $fileNameWithoutExt && echo && $dir$fileNameWithoutExt && echo"
     },
     "lldb.launch.terminal": "integrated",
     "C_Cpp.default.intelliSenseMode": "clang-x64",
