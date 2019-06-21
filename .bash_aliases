@@ -1,6 +1,6 @@
 ## Set up SCRIPTPATH to the folder containing this script
 ## Ref for zsh: https://stackoverflow.com/questions/9901210/bash-source0-equivalent-in-zsh
-[ ${ZSH_VERSION}. != . ] && SCRIPTPATH=${(%):-%x}} && export SCRIPTPATH=${SCRIPTPATH%/*}
+[ ${ZSH_VERSION}.  != . ] && export SCRIPTPATH=${(%):-%x}} && export SCRIPTPATH=${SCRIPTPATH%/*}
 [ ${BASH_VERSION}. != . ] && export SCRIPTPATH=${BASH_SOURCE%/*}
 #echo SCRIPTPATH=$SCRIPTPATH
 
