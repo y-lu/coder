@@ -1,12 +1,14 @@
-[ -n BASH_VERSION ] && export SCRIPTPATH=${BASH_SOURCE%/*}
-# https://stackoverflow.com/questions/9901210/bash-source0-equivalent-in-zsh
-[ -n ZSH_VERSION  ] && SCRIPTPATH=${(%):-%x}} && export SCRIPTPATH=${SCRIPTPATH%/*}
-# echo SCRIPTPATH=$SCRIPTPATH
+## Set up SCRIPTPATH to the folder containing this script
+## Ref for zsh: https://stackoverflow.com/questions/9901210/bash-source0-equivalent-in-zsh
+[ ${ZSH_VERSION}. != . ] && SCRIPTPATH=${(%):-%x}} && export SCRIPTPATH=${SCRIPTPATH%/*}
+[ ${BASH_VERSION}. != . ] && export SCRIPTPATH=${BASH_SOURCE%/*}
+#echo SCRIPTPATH=$SCRIPTPATH
+
 alias va="vi $SCRIPTPATH/.bash_aliases; . $SCRIPTPATH/.bash_aliases"
-#export PS1="\u@:\w\$ "
 
 # should do the following just for bash
-[ -z BASH_VERSION ] && export PS1="\[\033[38;3;4;27m\]\u@:\w\$\[\033[0m\] "
+[ ${BASH_VERSION}. != . ] && export PS1="\[\033[38;3;4;27m\]\u@:\w\$\[\033[0m\] "
+#export PS1="\u@:\w\$ "
 
 function helper() {
   echo Running: ${*}
@@ -37,8 +39,8 @@ function print_colors() {
 }
 
 [ -e $SCRIPTPATH/.dir_colors ] && eval `dircolors $SCRIPTPATH/.dir_colors`
-
 alias ls="ls --color"
+
 eval `alias_helper intellij_stable /opt/intellij-ce-stable/bin/idea.sh`
 eval `alias_helper intellij /opt/intellij-ce-beta/bin/idea.sh`
 eval `alias_helper idea /opt/intellij-ce-beta/bin/idea.sh`
