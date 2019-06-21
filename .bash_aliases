@@ -10,17 +10,19 @@ alias va="vi $SCRIPTPATH/.bash_aliases; . $SCRIPTPATH/.bash_aliases"
 [ ${BASH_VERSION}. != . ] && export PS1="\[\033[38;3;4;27m\]\u@:\w\$\[\033[0m\] "
 #export PS1="\u@:\w\$ "
 
+# Print the actual command line then run it.
 function helper() {
   echo Running: ${*}
   eval "$*"
 }
 
+# Only create alias if the binary is present.
 function alias_helper() {
   if [ $# -eq 2 ]; then
     A=$1
     B=$2
     which ${2%% *} 2>&1 >/dev/null
-    [ $? -eq 0 ] && echo alias $A=\"$B\"
+    [ $? -eq 0 ] && echo alias $A=\"helper $B\"
     #echo $A $B $CMD
   else
     true
