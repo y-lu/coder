@@ -1,3 +1,4 @@
+UNAME=$(uname)
 ## Set up SCRIPTPATH to the folder containing this script
 ## Ref for zsh: https://stackoverflow.com/questions/9901210/bash-source0-equivalent-in-zsh
 [ ${ZSH_VERSION}.  != . ] && export SCRIPTPATH=${(%):-%x}} && export SCRIPTPATH=${SCRIPTPATH%/*}
@@ -40,8 +41,10 @@ function print_colors() {
   done
 }
 
-[ -e $SCRIPTPATH/.dir_colors ] && eval `dircolors $SCRIPTPATH/.dir_colors`
-alias ls="ls --color"
+whence dircolors && [ -e $SCRIPTPATH/.dir_colors ] && eval `dircolors $SCRIPTPATH/.dir_colors`
+
+alias ls="ls -G"
+[ ${UNAME}. != Darwin. ] && alias ls="ls --color"
 
 eval `alias_helper intellij_stable /opt/intellij-ce-stable/bin/idea.sh`
 eval `alias_helper intellij /opt/intellij-ce-beta/bin/idea.sh`
