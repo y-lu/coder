@@ -54,7 +54,7 @@ eval `alias_helper clion /opt/clion-beta/bin/clion.sh`
 eval `alias_helper tm0 "tmx2 -2 new-session -A -s 0"`
 eval `alias_helper tm1 "tmx2 -2 new-session -A -s 1 -t 0"`
 
-function xpra_start() {
+function xpra_start_alt() {
   if [ $# -ne 1 ]; then
     echo
     echo "Usage: "
@@ -68,7 +68,7 @@ function xpra_start() {
   fi
 }
 
-function xpra_attach() {
+function xpra_attach_alt() {
   if [ $# -ne 1 ]; then
     echo
     echo "Usage: "
@@ -82,28 +82,36 @@ function xpra_attach() {
   fi
 }
 
-# z.lua for fast directory change.
-# 1. install z.lua from github
-ZLUA=$HOME/local/bin/z.lua
-[ -e $ZLUA ] || ( mkdir -p $HOME/local/bin && echo "Downloading z.lua ... " && \
-  curl https://raw.githubusercontent.com/y-lu/z.lua/master/z.lua > $ZLUA )
-
-# 2. check lua
-if which lua5.3 >/dev/null; then
-  eval "$(lua5.3 $ZLUA --init ${SHELL##*/})"
+# zz
+if [ ${UNAME}. = Darwin. ]; then
+  ZZ=$HOME/local/bin/z.sh
+  [ -e $ZZ ] || ( mkdir -p $HOME/local/bin && echo "Downloading z.sh ... " && \
+    curl https://raw.githubusercontent.com/rupa/z/master/z.sh > $ZZ )
+  source $ZZ
+  alias zz="z -l"
 else
-  echo "To use zlua, please install lua first with this command:"
-  echo "sudo apt-get install lua5.3"
-fi
+  # z.lua for fast directory change.
+  # 1. install z.lua from github
+  ZLUA=$HOME/local/bin/z.lua
+  [ -e $ZLUA ] || ( mkdir -p $HOME/local/bin && echo "Downloading z.lua ... " && \
+    curl https://raw.githubusercontent.com/y-lu/z.lua/master/z.lua > $ZLUA )
 
-# 3. alias
-function zz() {
-  if [[ $# -eq 0 ]]; then
-    z -i google
+  # 2. check lua
+  if which lua5.3 >/dev/null; then
+    eval "$(lua5.3 $ZLUA --init ${SHELL##*/})"
   else
-    z -i "$*"
+    echo "To use zlua, please install lua first with this command: sudo apt-get install lua5.3"
   fi
-  pushd 2>&1 >/dev/null
-  popd  2>&1 >/dev/null
-}
+
+  # 3. alias
+  function zz() {
+    if [[ $# -eq 0 ]]; then
+      z -i google
+    else
+      z -i "$*"
+    fi
+    pushd 2>&1 >/dev/null
+    popd  2>&1 >/dev/null
+  }
+fi
 
