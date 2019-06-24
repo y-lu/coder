@@ -9,4 +9,12 @@ else
   zstyle ':completion:*:default' list-colors ''
 fi
 
-[ -e $SCRIPTPATH/.bash_aliases ] && . $SCRIPTPATH/.bash_aliases
+[ -e $SCRIPTPATH/.bash_aliases ] && source $SCRIPTPATH/.bash_aliases
+
+setopt autopushd
+setopt autocd
+
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh/cache
+
+

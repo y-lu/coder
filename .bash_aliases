@@ -41,7 +41,7 @@ function print_colors() {
   done
 }
 
-whence dircolors >/dev/null && [ -e $SCRIPTPATH/.dir_colors ] && eval `dircolors $SCRIPTPATH/.dir_colors`
+which dircolors >/dev/null && [ -e $SCRIPTPATH/.dir_colors ] && eval `dircolors $SCRIPTPATH/.dir_colors`
 
 alias ls="ls -G"
 [ ${UNAME}. != Darwin. ] && alias ls="ls --color"
@@ -61,7 +61,10 @@ function xpra_start() {
     echo "  xpra_start ssh:user@host:diplay_number"
     echo
   else
-    /Applications/Xpra.app/Contents/MacOS/Xpra start --ssh='ssh -v -p 443' --dpi=120 --encoding=rgb --start-env="LC_ALL=en_US.UTF-8" --start-env='LANG=en_US.UTF-8' --swap-keys=off --start-env="DISPLAY=:100" --start=xterm $*
+    /Applications/Xpra.app/Contents/MacOS/Xpra start --ssh='ssh -v -p 443' \
+      --dpi=120 --encoding=rgb \
+      --start-env="LC_ALL=en_US.UTF-8" --start-env='LANG=en_US.UTF-8' \
+      --swap-keys=off --start-env="DISPLAY=:100" --start=xterm $*
   fi
 }
 
@@ -72,6 +75,35 @@ function xpra_attach() {
     echo "  xpra_attach ssh:user@host:diplay_number"
     echo
   else
-    /Applications/Xpra.app/Contents/MacOS/Xpra attach --ssh='ssh -v -p 443' --dpi=120 --encoding=rgb --env="LC_ALL=en_US.UTF-8" --env='LANG=en_US.UTF-8' --swap-keys=off --env="DISPLAY=:100" $*
+    /Applications/Xpra.app/Contents/MacOS/Xpra attach --ssh='ssh -v -p 443' \
+      --dpi=120 --encoding=rgb \
+      --env="LC_ALL=en_US.UTF-8" --env='LANG=en_US.UTF-8' \
+      --swap-keys=off --env="DISPLAY=:100" $*
   fi
 }
+
+# z.lua for fast directory change.
+# 1. install z.lua from github
+ZLUA=$HOME/local/bin/z.lua
+[ -e $ZLUA ] || ( mkdir -p $HOME/local/bin && \
+  curl https://raw.githubusercontent.com/y-lu/z.lua/master/z.lua > $ZLUA )
+
+# 2. check lua
+if which lua5.3 >/dev/null; then
+  eval "$(lua5.3 $ZLUA --init ${SHELL##*/})"
+else
+  echo "To use zlua, please install lua first with this command:"
+  echo "sudo apt-get install lua5.3"
+fi
+
+# 3. alias
+function zz() {
+  if [[ $# -eq 0 ]]; then
+    z -i google
+  else
+    z -i "$*"
+  fi
+  pushd 2>&1 >/dev/null
+  popd  2>&1 >/dev/null
+}
+
