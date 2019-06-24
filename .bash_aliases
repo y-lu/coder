@@ -85,7 +85,7 @@ function xpra_attach() {
 # z.lua for fast directory change.
 # 1. install z.lua from github
 ZLUA=$HOME/local/bin/z.lua
-[ -e $ZLUA ] || ( mkdir -p $HOME/local/bin && \
+[ -e $ZLUA ] || ( mkdir -p $HOME/local/bin && echo "Downloading z.lua ... " && \
   curl https://raw.githubusercontent.com/y-lu/z.lua/master/z.lua > $ZLUA )
 
 # 2. check lua
