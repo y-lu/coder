@@ -41,7 +41,7 @@ function print_colors() {
   done
 }
 
-whence dircolors && [ -e $SCRIPTPATH/.dir_colors ] && eval `dircolors $SCRIPTPATH/.dir_colors`
+whence dircolors >/dev/null && [ -e $SCRIPTPATH/.dir_colors ] && eval `dircolors $SCRIPTPATH/.dir_colors`
 
 alias ls="ls -G"
 [ ${UNAME}. != Darwin. ] && alias ls="ls --color"
