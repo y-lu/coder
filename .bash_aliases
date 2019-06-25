@@ -84,11 +84,10 @@ function xpra_attach_alt() {
 
 # zz
 if [ ${UNAME}. = Darwin. ]; then
-  ZZ=$HOME/local/bin/z.sh
-  [ -e $ZZ ] || ( mkdir -p $HOME/local/bin && echo "Downloading z.sh ... " && \
-    curl https://raw.githubusercontent.com/rupa/z/master/z.sh > $ZZ )
-  source $ZZ
-  alias zz="z -l"
+  # z.sh for fast directory change.
+  [ -e $HOME/local/bin/z.sh ] || ( mkdir -p $HOME/local/bin && echo "Downloading z.sh ... " && \
+    curl https://raw.githubusercontent.com/rupa/z/master/z.sh > $HOME/local/bin/z.sh )
+  source $HOME/local/bin/z.sh
 else
   # z.lua for fast directory change.
   # 1. install z.lua from github
@@ -102,16 +101,16 @@ else
   else
     echo "To use zlua, please install lua first with this command: sudo apt-get install lua5.3"
   fi
-
-  # 3. alias
-  function zz() {
-    if [[ $# -eq 0 ]]; then
-      z -i google
-    else
-      z -i "$*"
-    fi
-    pushd 2>&1 >/dev/null
-    popd  2>&1 >/dev/null
-  }
 fi
 
+# works with z.lua
+function zz() {
+  if [[ $# -eq 0 ]]; then
+    z -i google
+  else
+    z -i "$*"
+  fi
+  pushd 2>&1 >/dev/null
+  popd  2>&1 >/dev/null
+}
+[ ${UNAME}. = Darwin. ] && function zz() { z -l "$*" }  # works with z.sh
