@@ -113,4 +113,4 @@ function zz() {
   pushd 2>&1 >/dev/null
   popd  2>&1 >/dev/null
 }
-[ ${UNAME}. = Darwin. ] && function zz() { z -l "$*" }  # works with z.sh
+[ ${UNAME}. = Darwin. ] && function zz() { z "$*" }  # works with z.sh
