@@ -87,6 +87,7 @@ if [ ${UNAME}. = Darwin. ]; then
   # z.sh for fast directory change.
   [ -e $HOME/local/bin/z.sh ] || ( mkdir -p $HOME/local/bin && echo "Downloading z.sh ... " && \
     curl https://raw.githubusercontent.com/rupa/z/master/z.sh > $HOME/local/bin/z.sh )
+  touch $HOME/.z
   source $HOME/local/bin/z.sh
 else
   # z.lua for fast directory change.
