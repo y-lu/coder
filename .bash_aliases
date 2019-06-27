@@ -54,33 +54,46 @@ eval `alias_helper clion /opt/clion-beta/bin/clion.sh`
 eval `alias_helper tm0 "tmx2 -2 new-session -A -s 0"`
 eval `alias_helper tm1 "tmx2 -2 new-session -A -s 1 -t 0"`
 
-function xpra_start_alt() {
-  if [ $# -ne 1 ]; then
+function xpra_start_port() {
+  if [ $# -ne 2 ]; then
     echo
     echo "Usage: "
-    echo "  xpra_start ssh:user@host:diplay_number"
+    echo "  xpra_start_port SSH_PORT ssh:user@host:diplay_number"
     echo
   else
-    /Applications/Xpra.app/Contents/MacOS/Xpra start --ssh='ssh -v -p 443' \
+    PORT=$1
+    shift 1
+    CMD=$(which xpra)
+    CMD=${CMD:-/Applications/Xpra.app/Contents/MacOS/Xpra}
+    $CMD start --ssh="ssh -v -p $PORT" \
       --dpi=120 --encoding=rgb \
       --start-env="LC_ALL=en_US.UTF-8" --start-env='LANG=en_US.UTF-8' \
       --swap-keys=off --start-env="DISPLAY=:100" --start=xterm $*
   fi
 }
 
-function xpra_attach_alt() {
-  if [ $# -ne 1 ]; then
+function xpra_attach_port() {
+  if [ $# -ne 2 ]; then
     echo
     echo "Usage: "
-    echo "  xpra_attach ssh:user@host:diplay_number"
+    echo "  xpra_attach_port SSH_PORT ssh:user@host:diplay_number"
     echo
   else
-    /Applications/Xpra.app/Contents/MacOS/Xpra attach --ssh='ssh -v -p 443' \
+    PORT=$1
+    shift 1
+    CMD=$(which xpra)
+    CMD=${CMD:-/Applications/Xpra.app/Contents/MacOS/Xpra}
+    $CMD attach --ssh="ssh -v -p $PORT" \
       --dpi=120 --encoding=rgb \
       --env="LC_ALL=en_US.UTF-8" --env='LANG=en_US.UTF-8' \
       --swap-keys=off --env="DISPLAY=:100" $*
   fi
 }
+
+alias xpra_start="xpra_start_port 22"
+alias xpra_attach="xpra_attach_port 22"
+alias xpra_start_alt="xpra_start_port 443"
+alias xpra_attach_alt="xpra_attach_port 443"
 
 # zz
 if [ ${UNAME}. = Darwin. ]; then
