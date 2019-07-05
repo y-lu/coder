@@ -33,7 +33,8 @@ function alias_helper() {
   fi
 }
 
-alias ip_external='curl ipinfo.io/ip'
+# more sophisticated way to find IP than "curl ipinfo.io/ip"
+alias ip_external="/bin/bash $SCRIPTPATH/local/bin/myip" 
 
 function print_colors() {
   color=16;
