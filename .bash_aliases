@@ -22,7 +22,7 @@ function alias_helper() {
   if [ $# -eq 2 ]; then
     A=$1
     B=$2
-    which ${2%% *} 2>&1 >/dev/null
+    which ${2%% *} 2>/dev/null 1>/dev/null
     [ $? -eq 0 ] && echo alias $A=\"helper $B\"
     #echo $A $B $CMD
   else
