@@ -33,6 +33,8 @@ function alias_helper() {
   fi
 }
 
+alias ip_external='curl ipinfo.io/ip'
+
 function print_colors() {
   color=16;
   while [ $color -lt 245 ]; do
