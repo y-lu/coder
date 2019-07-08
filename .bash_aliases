@@ -136,3 +136,33 @@ function zz() {
   popd  2>&1 >/dev/null
 }
 [ ${UNAME}. = Darwin. ] && function zz() { z "$*"; }
+
+function hg_log_dates() {
+  if [ $# -eq 0 -o $# -gt 2 ]; then
+    echo "USAGE:"
+    echo "  hg_log_dates yyyy-mm-dd [yyyy-mm-dd]"
+    echo
+  else
+    local DATE1=$1
+    shift 1
+    local DATE2=$(date +%Y-%m-%d)
+    [ $# -eq 1 ] && DATE2=$1
+    echo hg log -u $USER -r "\"reverse(date('$DATE1 to $DATE2'))"\"
+    hg log -u $USER -r "reverse(date('$DATE1 to $DATE2'))" 
+  fi
+}
+
+function hg_grep_dates() {
+  if [ $# -lt 2 -o $# -gt 3 ]; then
+    echo "USAGE:"
+    echo "  hg_log_dates yyyy-mm-dd [yyyy-mm-dd] pattern"
+    echo
+  else
+    local DATE1=$1
+    shift 1
+    local DATE2=$(date +%Y-%m-%d)
+    [[ ${1} =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] && DATE2=$1 && shift 1
+    echo hg grep --all -u -r "\"reverse(date('$DATE1 to $DATE2'))"\" $*
+    hg grep --all -u -r "reverse(date('$DATE1 to $DATE2'))" $*
+  fi
+}
