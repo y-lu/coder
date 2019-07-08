@@ -55,7 +55,7 @@ eval `alias_helper tm0 "tmx2 -2 new-session -A -s 0"`
 eval `alias_helper tm1 "tmx2 -2 new-session -A -s 1 -t 0"`
 
 function xpra_start_port() {
-  if [ $# -ne 2 ]; then
+  if [ $# -lt 2 ]; then
     echo
     echo "Usage: "
     echo "  xpra_start_port SSH_PORT ssh:user@host:diplay_number"
@@ -64,7 +64,7 @@ function xpra_start_port() {
     PORT=$1
     shift 1
     CMD=$(which xpra)
-    CMD=${CMD:-/Applications/Xpra.app/Contents/MacOS/Xpra}
+    [ $? -ne 0 ] && CMD=/Applications/Xpra.app/Contents/MacOS/Xpra
     $CMD start --ssh="ssh -v -p $PORT" \
       --dpi=120 --encoding=rgb \
       --start-env="LC_ALL=en_US.UTF-8" --start-env='LANG=en_US.UTF-8' \
@@ -73,7 +73,7 @@ function xpra_start_port() {
 }
 
 function xpra_attach_port() {
-  if [ $# -ne 2 ]; then
+  if [ $# -lt 2 ]; then
     echo
     echo "Usage: "
     echo "  xpra_attach_port SSH_PORT ssh:user@host:diplay_number"
@@ -82,7 +82,11 @@ function xpra_attach_port() {
     PORT=$1
     shift 1
     CMD=$(which xpra)
-    CMD=${CMD:-/Applications/Xpra.app/Contents/MacOS/Xpra}
+    [ $? -ne 0 ] && CMD=/Applications/Xpra.app/Contents/MacOS/Xpra
+    echo $CMD attach --ssh="ssh -v -p $PORT" \
+      --dpi=120 --encoding=rgb \
+      --env="LC_ALL=en_US.UTF-8" --env='LANG=en_US.UTF-8' \
+      --swap-keys=off --env="DISPLAY=:100" $*
     $CMD attach --ssh="ssh -v -p $PORT" \
       --dpi=120 --encoding=rgb \
       --env="LC_ALL=en_US.UTF-8" --env='LANG=en_US.UTF-8' \
