@@ -5,7 +5,8 @@ UNAME=$(uname)
 [ ${BASH_VERSION}. != . ] && export SCRIPTPATH=${BASH_SOURCE%/*}
 #echo SCRIPTPATH=$SCRIPTPATH
 
-alias va="vi $SCRIPTPATH/.bash_aliases; . $SCRIPTPATH/.bash_aliases"
+alias va="vi $SCRIPTPATH/.bash_aliases ; . $SCRIPTPATH/.bash_aliases"
+alias vz="vi $SCRIPTPATH/.zsh_aliases ; . $SCRIPTPATH/.zsh_aliases"
 
 # should do the following just for bash
 [ ${BASH_VERSION}. != . ] && export PS1="\[\033[38;3;4;27m\]\u@:\w\$\[\033[0m\] "
@@ -13,15 +14,15 @@ alias va="vi $SCRIPTPATH/.bash_aliases; . $SCRIPTPATH/.bash_aliases"
 
 # Print the actual command line then run it.
 function helper() {
-  echo Running: ${*}
+  echo Running: ${*}  1>&2
   eval "$*"
 }
 
 # Only create alias if the binary is present.
 function alias_helper() {
   if [ $# -eq 2 ]; then
-    A=$1
-    B=$2
+    A="$1"
+    B="$2"
     which ${2%% *} 2>&1 >/dev/null
     [ $? -eq 0 ] && echo alias $A=\"helper $B\"
     #echo $A $B $CMD

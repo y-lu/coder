@@ -17,4 +17,6 @@ setopt autocd
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
 
-
+alias -g 1l="|less"
+alias -g 2l="2>&1|less"
+unsetopt share_history
