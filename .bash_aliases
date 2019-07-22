@@ -70,7 +70,7 @@ function xpra_start_port() {
     CMD=$(which xpra)
     [ $? -ne 0 ] && CMD=/Applications/Xpra.app/Contents/MacOS/Xpra
     $CMD start --ssh="ssh -v -p $PORT" \
-      --dpi=120 --encoding=rgb \
+      --dpi=96 --encoding=rgb \
       --start-env="LC_ALL=en_US.UTF-8" --start-env='LANG=en_US.UTF-8' \
       --swap-keys=off --start-env="DISPLAY=:100" --start=xterm $*
   fi
@@ -88,11 +88,11 @@ function xpra_attach_port() {
     CMD=$(which xpra)
     [ $? -ne 0 ] && CMD=/Applications/Xpra.app/Contents/MacOS/Xpra
     echo $CMD attach --ssh="ssh -v -p $PORT" \
-      --dpi=120 --encoding=rgb \
+      --dpi=96 --encoding=rgb \
       --env="LC_ALL=en_US.UTF-8" --env='LANG=en_US.UTF-8' \
       --swap-keys=off --env="DISPLAY=:100" $*
     $CMD attach --ssh="ssh -v -p $PORT" \
-      --dpi=120 --encoding=rgb \
+      --dpi=96 --encoding=rgb \
       --env="LC_ALL=en_US.UTF-8" --env='LANG=en_US.UTF-8' \
       --swap-keys=off --env="DISPLAY=:100" $*
   fi
@@ -136,3 +136,15 @@ function zz() {
   popd  2>&1 >/dev/null
 }
 [ ${UNAME}. = Darwin. ] && function zz() { z "$*"; }
+
+function dec2hex() {
+  for x in $*; do
+    echo "$(([##16]${x}))"
+  done
+}
+
+function hex2dec() {
+  for x in $*; do
+    echo "$((${x}))"
+  done
+}
