@@ -1,4 +1,5 @@
 UNAME=$(uname)
+EDITOR=vim
 ## Set up SCRIPTPATH to the folder containing this script
 ## Ref for zsh: https://stackoverflow.com/questions/9901210/bash-source0-equivalent-in-zsh
 [ ${ZSH_VERSION}.  != . ] && export SCRIPTPATH=${(%):-%x}} && export SCRIPTPATH=${SCRIPTPATH%/*}
