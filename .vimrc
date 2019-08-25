@@ -15,24 +15,34 @@ execute pathogen#infect()
 "map <C-n> :NERDTreeToggle<CR>
 
 function! SetFileNameToFirstLine()
-  silent execute "file ~/.vim/backup/".fnameescape(getline(1)).strftime("-saved-%Y-%m-%d_%H-%M.txt")
+  echo "Filename set to first line."
+  silent execute "file ~/.vim/backup/".fnameescape(substitute(substitute(getline(1),'\s','_', 'g'), '[^a-zA-Z0-9_]', '', 'g')).strftime("-saved-%Y-%m-%d_%H-%M.txt")
 endfunction
+nnoremap <F9> :call SetFileNameToFirstLine()<CR>
 
-let s:set_file_name_to_first_line_active = 0
-function! ToggleSetFileNameToFirstLine()
-  if s:set_file_name_to_first_line_active
-    silent! augroup! SFNTFL
-    echo "SetFileNameToFirstLine disabled"
-  else
-    augroup SFNTFL
-      au! InsertLeave,CursorHold,CursorHoldI <buffer> call SetFileNameToFirstLine()
-    augroup END
-    call SetFileNameToFirstLine()
-    echo "SetFileNameToFirstLine enabled"
-  endif
-  let s:set_file_name_to_first_line_active = !s:set_file_name_to_first_line_active
-endfunction
-
-nnoremap <F9> :call ToggleSetFileNameToFirstLine()<CR>
+"let s:set_file_name_to_first_line_active = 0
+"function! ToggleSetFileNameToFirstLine()
+"  if s:set_file_name_to_first_line_active
+"    silent! augroup! SFNTFL
+"    echo "SetFileNameToFirstLine disabled"
+"  else
+"    augroup SFNTFL
+"      au! InsertLeave,CursorHold,CursorHoldI <buffer> call SetFileNameToFirstLine()
+"    augroup END
+"    call SetFileNameToFirstLine()
+"    echo "SetFileNameToFirstLine enabled"
+"  endif
+"  let s:set_file_name_to_first_line_active = !s:set_file_name_to_first_line_active
+"endfunction
+"nnoremap <F9> :call ToggleSetFileNameToFirstLine()<CR>
 
 :packadd vim-signify
+
+" menu in terminal. see: https://unix.stackexchange.com/questions/43526/is-it-possible-to-create-and-use-menus-in-terminal-based-vim
+set wildmenu
+set wildmode=full
+source $VIMRUNTIME/menu.vim
+set wildcharm=<Tab>
+map <F10> :emenu <Tab>
+
+set mouse=a
